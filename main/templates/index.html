@@ -1,17 +1,31 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static%}
 
 {%block styles %}
-    <link rel="stylesheet" href="{%static 'css/index.css'%}">
+    <link rel="stylesheet" type="text/css" href="{%static 'css/index.css'%}">
+
 {% endblock %}
 
 
 {% block body %}
-	<h1>HI</h1>
+  <ul>
+        <li><a>Aitu bank</a></li>
+        <li><a>My bank</a></li>
+        <li><a>Payments</a></li>
+        <li><a>Credits</a></li>
+    <li class="account"><a><img src="{% static  'img/account.png' %}" style="width: 45px;height: auto"></a></li>
+    </ul>
+    {% block content %}
+        <div><h1 style="font-size: 150px;margin: auto;position: absolute;top: 300px;left: 500px">Main Content</h1></div>
+        {% endblock %}
+    {% block footer %}
+        <footer>
+            <div class="footer">footer</div>
+        </footer>
+        {% endblock %}
 {% endblock %}
 
 
 {%block scripts%}
     
 {%endblock%}
-
