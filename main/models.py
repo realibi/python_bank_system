@@ -4,7 +4,8 @@ from django.db import models
 #image = models.ImageField(upload_to='club_images', blank=True, null=True)
 
 class Customer(models.Model):
-    customer_id = models.IntegerField(default=0)
+    customer_login = models.CharField(max_length=25, default="")
+    customer_password = models.CharField(max_length=25, default="")
     customer_name = models.CharField(max_length=25)
     customer_surname = models.CharField(max_length=25)
 
