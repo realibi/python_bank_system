@@ -16,12 +16,10 @@
     <li class="account"><a><img src="{% static  'img/account.png' %}" style="width: 45px;height: auto"></a></li>
     </ul>
     {% block content %}
-        <form method="post" action="{% url 'main:registration'%}">
+        <form method="post" action="{% url 'main:login'%}">
             {% csrf_token %}
-            <input id="name" type="text" name="name" placeholder="name"><br>
-            <input id="surname" type="text" name="surname" placeholder="surname"><br>
-            <input id="login" type="text" name="login" placeholder="login"><br>
-            <input id="password" type="password" name="password" placeholder="password"><br>
+            <input id="name" type="text" name="login"><br>
+            <input id="name" type="text" name="password"><br>
             <input type="submit" value="OK">
         </form>
         {% endblock %}
