@@ -32,4 +32,4 @@ class Transfer(models.Model):
     amount = models.IntegerField(default=0)
     transaction_type = models.BooleanField()
     receiver = models.ForeignKey(Account, on_delete=models.CASCADE, related_name='%(class)sreceiver_account')
-    transaction_date = models.DateTimeField('transaction date')
+    transaction_date = models.DateTimeField(auto_now_add=True)
