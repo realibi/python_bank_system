@@ -52,15 +52,16 @@ def login(request):
 def money_transfer(request):
     print("money transfer is starting")
     if request.method == "POST":
-        current_account_id = int(request.session["user_id"])
+        current_account_id = int(request.session.get("user_id"))
         print(current_account_id)
         receiver_number = request.POST.get("receiver_number", None)
         amount = int(request.POST.get("amount", None))
         try:
-            sender_account = Account.objects.get(id=current_account_id)
+            sender_account = Account.objects.get(number=123)
             receiver_account = Account.objects.get(number=receiver_number)
             if receiver_account:
                 if sender_account.balance >= amount:
+                    transfer = Transfer(account=sender_account, amount=amount, transaction_type=True, receiver=receiver_account, transaction_date)
                     sender_account.balance = sender_account.balance - amount
                     print(sender_account.balance)
                     sender_account.save()
@@ -79,6 +80,28 @@ def money_transfer(request):
 
 
 def service_payment(request):
+    print("service payment is starting")
+    if request.method == "POST":
+        current_account_id = int(request.session.get("user_id"))
+        amount = int(request.POST.get("amount", None))
+        try:
+            sender_account = Account.objects.get(pk=current_account_id)
+            print(sender_account)
+            
+            if sender_account.balance >= amount:
+                sender_account.balance = sender_account.balance - amount
+                print(sender_account.balance)
+                sender_account.save()
+        
+                return redirect(reverse('main:index'))
+        except:
+            print("something went wrong")
+            return render(request, "login.html", {})
+    else:
+        return render(request, "payments.html", {})
+
+
+def history(request):
     print("service payment is starting")
     if request.method == "POST":
         current_account_id = int(request.session["user_id"])

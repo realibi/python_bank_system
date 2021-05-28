@@ -27,10 +27,9 @@ class Account_type(models.Model):
     account = models.ForeignKey(Account, on_delete=models.CASCADE)
     desc = models.CharField(max_length=255)
 
-class Transactions_history(models.Model):
+class Transfer(models.Model):
     account = models.ForeignKey(Account, on_delete=models.CASCADE, related_name='%(class)ssender_account')
     amount = models.IntegerField(default=0)
     transaction_type = models.BooleanField()
     receiver = models.ForeignKey(Account, on_delete=models.CASCADE, related_name='%(class)sreceiver_account')
     transaction_date = models.DateTimeField('transaction date')
-    receiver_service = models.ForeignKey(Service, on_delete=models.CASCADE)
