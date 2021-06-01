@@ -2,37 +2,46 @@
 {% load static%}
 
 {%block styles %}
-    <link rel="stylesheet" type="text/css" href="{%static 'css/index.css'%}">
+    <link rel="stylesheet" type="text/css" href="{%static 'css/styles.css'%}">
 
 {% endblock %}
 
 
 {% block body %}
-  <ul>
-        <li><a>Aitu bank</a></li>
-        <li><a>My bank</a></li>
-        <li><a>Payments</a></li>
-        <li><a>Credits</a></li>
-    <li class="account"><a><img src="{% static  'img/account.png' %}" style="width: 45px;height: auto"></a></li>
-    </ul>
+<div class="topnav">
+    <a href="/mybank" >Home</a>
+    <a href="/transfer">Transfer</a>
+    <a href="/payments" >Payments</a>
+    <a href="/logout" style="float:right">Logout</a>
+    </div>
     {% block content %}
         
     <h1>My transfers history:</h1>
+        <div class="card" >
+        <table>
+                <tr>
+                    <th>Receiver</th>
+                    <th>Receiver's card number</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                </tr>
 
     {% for transfer in transfers %}
-        
-        <b>Receiver:</b> {{ transfer.receiver.customer.customer_name }} {{ transfer.receiver.customer.customer_surname }} <br>
-        <b>Receiver's card number:</b> {{ transfer.receiver.number }} <br>
-        <b>Amount:</b> {{ transfer.amount }} KZT <br>
-        <b>Date:</b> {{ transfer.transaction_date }} <br>
-        <hr>
+        <tr>
+            <td>{{ transfer.receiver.customer.customer_name }} {{ transfer.receiver.customer.customer_surname }} </td>
+            <td>{{ transfer.receiver.number }}</td>
+            <td>{{ transfer.amount }}</td>
+            <td>{{ transfer.transaction_date }}</td>
+        </tr>
     {% endfor %}
+             </table>
+        </div>
 
     {% endblock %}
     {% block footer %}
-        <footer>
-            <div class="footer">footer</div>
-        </footer>
+        <div class="footer">
+    <h2>Footer</h2>
+</div>
         {% endblock %}
 {% endblock %}
 

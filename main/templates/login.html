@@ -2,31 +2,32 @@
 {% load static%}
 
 {%block styles %}
-    <link rel="stylesheet" type="text/css" href="{%static 'css/index.css'%}">
+    <link rel="stylesheet" type="text/css" href="{%static 'css/styles.css'%}">
 
 {% endblock %}
 
 
 {% block body %}
-  <ul>
-        <li><a>Aitu bank</a></li>
-        <li><a>My bank</a></li>
-        <li><a>Payments</a></li>
-        <li><a>Credits</a></li>
-    <li class="account"><a><img src="{% static  'img/account.png' %}" style="width: 45px;height: auto"></a></li>
-    </ul>
+  <div class="topnav">
+
+</div>
     {% block content %}
         <form method="post" action="{% url 'main:login'%}">
+        <div class="container">
             {% csrf_token %}
-            <input id="name" type="text" name="login"><br>
-            <input id="name" type="text" name="password"><br>
+            <h2>Login Form</h2>
+            <label><b>Login</b></label>
+            <input id="name" placeholder="Enter login" type="text" name="login"><br>
+            <label><b>Password</b></label>
+            <input id="name" type="password" placeholder="Enter password" name="password"><br>
             <input type="submit" value="OK">
+            </div>
         </form>
         {% endblock %}
     {% block footer %}
-        <footer>
-            <div class="footer">footer</div>
-        </footer>
+        <div class="footer">
+    <h2>Footer</h2>
+</div>
         {% endblock %}
 {% endblock %}
 

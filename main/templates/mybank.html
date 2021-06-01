@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static%}
+
+{%block styles %}
+
+    <link rel="stylesheet" type="text/css" href="{%static 'css/styles.css'%}">
+{% endblock %}
+
+
+{% block body %}
+
+  <div class="topnav">
+    <a href="/history" >History</a>
+    <a href="/transfer">Transfer</a>
+    <a href="/payments" >Payments</a>
+    <a href="/logout" style="float:right">Logout</a>
+    </div>
+    {% block content %}
+        <div class="row">
+    <div class="leftblock">
+        <div class="balance" style="background: white">
+            <div>Current user</div>
+            <div>{{ account.customer.customer_name }} {{ account.customer.customer_surname }}</div>
+        </div>
+
+        <div class="balance">
+            <div>Available</div>
+            <div>{{ account.balance }}</div>
+        </div>
+
+        <div class="balance" style="background: grey">
+            <div>Card number</div>
+            <div>{{ account.number }}</div>
+        </div>
+
+
+        </div>
+        </div>
+        {% endblock %}
+    {% block footer %}
+        <div class="footer">
+    <h2>Footer</h2>
+</div>
+        {% endblock %}
+{% endblock %}
+
+
+{%block scripts%}
+    
+{%endblock%}

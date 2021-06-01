@@ -2,30 +2,30 @@
 {% load static%}
 
 {%block styles %}
-    <link rel="stylesheet" type="text/css" href="{%static 'css/index.css'%}">
+    <link rel="stylesheet" type="text/css" href="{%static 'css/styles.css'%}">
 
 {% endblock %}
 
 
 {% block body %}
-  <ul>
-        <li><a>Aitu bank</a></li>
-        <li><a>My bank</a></li>
-        <li><a>Payments</a></li>
-        <li><a>Credits</a></li>
-    <li class="account"><a><img src="{% static  'img/account.png' %}" style="width: 45px;height: auto"></a></li>
-    </ul>
+<div class="topnav">
+    <a href="/mybank" >Home</a>
+    <a href="/history">History</a>
+    <a href="/transfer" >Transfer</a>
+    <a href="/logout" style="float:right">Logout</a>
+    </div>
     {% block content %}
         <form method="post" action="{% url 'main:service_payment'%}">
             {% csrf_token %}
-            <input hidden type="text" name="amount" value="200">
+            <input hidden  name="service_name" value="Internet">
+            <input hidden   name="amount" value="200">
             <button type="submit">Internet</button>
         </form>
         {% endblock %}
     {% block footer %}
-        <footer>
-            <div class="footer">footer</div>
-        </footer>
+        <div class="footer">
+    <h2>Footer</h2>
+</div>
         {% endblock %}
 {% endblock %}
 

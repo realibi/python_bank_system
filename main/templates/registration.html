@@ -2,33 +2,32 @@
 {% load static%}
 
 {%block styles %}
-    <link rel="stylesheet" type="text/css" href="{%static 'css/index.css'%}">
+    <link rel="stylesheet" type="text/css" href="{%static 'css/styles.css'%}">
 
 {% endblock %}
 
 
 {% block body %}
-  <ul>
-        <li><a>Aitu bank</a></li>
-        <li><a>My bank</a></li>
-        <li><a>Payments</a></li>
-        <li><a>Credits</a></li>
-    <li class="account"><a><img src="{% static  'img/account.png' %}" style="width: 45px;height: auto"></a></li>
-    </ul>
+
     {% block content %}
         <form method="post" action="{% url 'main:registration'%}">
             {% csrf_token %}
+            <h2>Register Form</h2>
+            <label><b>Name</b></label>
             <input id="name" type="text" name="name" placeholder="name"><br>
+            <label><b>Surname</b></label>
             <input id="surname" type="text" name="surname" placeholder="surname"><br>
+            <label><b>Login</b></label>
             <input id="login" type="text" name="login" placeholder="login"><br>
+            <label><b>Password</b></label>
             <input id="password" type="password" name="password" placeholder="password"><br>
             <input type="submit" value="OK">
         </form>
         {% endblock %}
     {% block footer %}
-        <footer>
-            <div class="footer">footer</div>
-        </footer>
+        <div class="footer">
+    <h2>Footer</h2>
+</div>
         {% endblock %}
 {% endblock %}
 
