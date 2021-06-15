@@ -10,17 +10,23 @@
 {% block body %}
 <div class="topnav">
     <a href="/mybank" >Home</a>
+    <a href="/transfer">Transfer</a>
     <a href="/history">History</a>
     <a href="/payments" >Payments</a>
-    <a href="/deposits" >Deposits</a>
     <a href="/logout" style="float:right">Logout</a>
     </div>
     {% block content %}
-        <form method="post" action="{% url 'main:money_transfer'%}">
+    <form class="leftcolumn" method="post" action="{% url 'main:depositmoney'%}">
             {% csrf_token %}
-            <h2>Transfer form</h2>
-            <label><b>Receiver number</b></label>
-            <input type="text" name="receiver_number" placeholder="receiver's card number"> <br>
+            <h2>Deposit form</h2>
+            <label><b>Deposit percentage: 9%</b></label>
+            <label><b>Amount</b></label>
+            <input type="number" name="amount" placeholder="amount"> <br>
+            <button type="submit">Send</button>
+        </form>
+        <form class="rightcolumn" method="post" action="{% url 'main:withdraw'%}">
+            {% csrf_token %}
+            <h2>Withdraw form</h2>
             <label><b>Amount</b></label>
             <input type="number" name="amount" placeholder="amount"> <br>
             <button type="submit">Send</button>
@@ -35,5 +41,5 @@
 
 
 {%block scripts%}
-    
+
 {%endblock%}

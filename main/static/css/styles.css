@@ -141,7 +141,8 @@ input[type=submit]:hover {
 /* Left column */
 .leftcolumn {
     float: left;
-    width: 75%;
+    width: 50%;
+    background-color: #f1f1f1;
 }
 
 .leftblock {
@@ -158,7 +159,7 @@ input[type=submit]:hover {
 /* Right column */
 .rightcolumn {
     float: left;
-    width: 25%;
+    width: 50%;
     background-color: #f1f1f1;
     padding-left: 20px;
 }

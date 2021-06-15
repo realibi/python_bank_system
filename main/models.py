@@ -21,6 +21,12 @@ class Account(models.Model):
     number = models.IntegerField(default=0)
 
 
+class Deposits(models.Model):
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    date = models.DateTimeField()
+    balance = models.IntegerField(default=0)
+
+
 class Service(models.Model):
     service_name = models.CharField(max_length=50)
     service_desc = models.CharField(max_length=255)

@@ -1,8 +1,9 @@
 import random
+from datetime import datetime
 
 from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponse
-from .models import Customer, Account, Transfer
+from .models import Customer, Account, Transfer, Deposits
 
 
 # Create your views here.
@@ -44,9 +45,89 @@ def myBank(request):
         current_account_id = int(request.session.get("user_id"))
         account = Account.objects.get(id=current_account_id)
 
-        return render(request, "mybank.html", {"account": account})
+        deposit_customer = Customer.objects.get(id=current_account_id)
+
+        deposit_objects = Deposits.objects.filter(customer=deposit_customer)
+        if len(deposit_objects) == 0:
+            deposit_info = "no deposit account"
+        else:
+            deposit = Deposits.objects.get(customer=deposit_customer)
+            deposit_info = str(deposit.balance)
+
+        return render(request, "mybank.html", {"account": account,"deposit_info": deposit_info})
     else:
         return redirect(reverse('main:index'))
+
+
+def deposits(request):
+    if request.session.get("user_id") is not None:
+
+        return render(request, "deposit.html", {})
+    else:
+        return redirect(reverse('main:index'))
+
+
+def deposit_money(request):
+    if request.method == "POST":
+        current_account_id = int(request.session.get("user_id"))
+        amount = int(request.POST.get("amount", None))
+        date = datetime.now()
+        try:
+            deposit_account = Account.objects.get(id=current_account_id)
+            deposit_customer = Customer.objects.get(id=current_account_id)
+            if deposit_account.balance >= amount:
+                deposit_objects = Deposits.objects.filter(customer=deposit_customer)
+                if len(deposit_objects) == 0:
+                    deposit = Deposits(customer=deposit_customer, date=date, balance=amount)
+                    deposit.save()
+                    deposit_account.balance = deposit_account.balance - amount
+                    deposit_account.save()
+                    return redirect(reverse('main:mybank'))
+                else:
+                    print("false")
+                    deposit = Deposits.objects.get(customer=deposit_customer)
+                    deposit.balance += amount
+                    deposit.save()
+                    deposit_account.balance = deposit_account.balance - amount
+                    deposit_account.save()
+                    return redirect(reverse('main:mybank'))
+        except:
+            print("something went wrong")
+            return redirect(reverse('main:mybank'))
+
+
+def withdraw(request):
+    if request.method == "POST":
+        current_account_id = int(request.session.get("user_id"))
+        amount = int(request.POST.get("amount", None))
+        withdraw_date = datetime.now()
+    try:
+
+        deposit_customer = Customer.objects.get(id=current_account_id)
+        deposit_account = Account.objects.get(id=current_account_id)
+        deposit_objects = Deposits.objects.filter(customer=deposit_customer)
+        if len(deposit_objects) == 0:
+            print("user don't have deposit account")
+            return redirect(reverse('main:mybank'))
+        else:
+            deposit = Deposits.objects.get(customer=deposit_customer)
+            deposit.balance = deposit.balance - amount
+            deposit.save()
+            difference = withdraw_date - deposit.date.replace(tzinfo=None)
+
+            if difference.days >= 30:
+                multiplier = difference.days/30
+                reward = amount + ((amount/100)*(9*multiplier))
+                deposit_account.balance += reward
+                deposit_account.save()
+            else:
+                deposit_account.balance += amount
+                deposit_account.save()
+
+            return redirect(reverse('main:mybank'))
+    except:
+        print("something went wrong")
+        return redirect(reverse('main:mybank'))
 
 
 def login(request):
@@ -100,7 +181,7 @@ def money_transfer(request):
                     receiver_account.balance = receiver_account.balance + amount
 
                     receiver_account.save()
-                    return redirect(reverse('main:index'))
+                    return redirect(reverse('main:mybank'))
         except:
             print("something went wrong")
             return redirect(reverse('main:money_transfer'))

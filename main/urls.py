@@ -11,6 +11,9 @@ urlpatterns = [
     path('transfer/', views.money_transfer, name='money_transfer'),
     path('payments/', views.service_payment, name='service_payment'),
     path('history/', views.history, name='history'),
+    path('deposits/', views.deposits, name='deposits'),
+    path('depositmoney/', views.deposit_money, name='depositmoney'),
+    path('withdraw/', views.withdraw, name='withdraw'),
     path('logout/', views.logout, name='logout'),
     path('mybank/', views.myBank, name='mybank'),
 ]

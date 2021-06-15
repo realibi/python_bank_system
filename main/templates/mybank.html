@@ -13,6 +13,7 @@
     <a href="/history" >History</a>
     <a href="/transfer">Transfer</a>
     <a href="/payments" >Payments</a>
+    <a href="/deposits">Deposits</a>
     <a href="/logout" style="float:right">Logout</a>
     </div>
     {% block content %}
@@ -26,6 +27,11 @@
         <div class="balance">
             <div>Available</div>
             <div>{{ account.balance }}</div>
+        </div>
+
+        <div class="balance" style="background-color: silver">
+            <div>Deposite balance</div>
+            <div>{{ deposit_info }}</div>
         </div>
 
         <div class="balance" style="background: grey">
