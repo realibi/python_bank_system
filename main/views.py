@@ -112,17 +112,20 @@ def withdraw(request):
         else:
             deposit = Deposits.objects.get(customer=deposit_customer)
             deposit.balance = deposit.balance - amount
-            deposit.save()
             difference = withdraw_date - deposit.date.replace(tzinfo=None)
-
             if difference.days >= 30:
+                print("true")
                 multiplier = difference.days/30
                 reward = amount + ((amount/100)*(9*multiplier))
                 deposit_account.balance += reward
+                deposit.date = datetime.now()
                 deposit_account.save()
             else:
+                print("false")
                 deposit_account.balance += amount
                 deposit_account.save()
+
+            deposit.save()
 
             return redirect(reverse('main:mybank'))
     except:
